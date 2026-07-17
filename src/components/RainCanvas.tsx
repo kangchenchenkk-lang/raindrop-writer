@@ -24,6 +24,7 @@ export default function RainCanvas({
   const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const presetImageRef = useRef<HTMLImageElement | null>(null);
 
   // WebGL references
   const glRef = useRef<WebGL2RenderingContext | null>(null);
@@ -57,47 +58,60 @@ export default function RainCanvas({
     offscreenCanvasRef.current = canvas;
   }, []);
 
-  // Set up custom media (image/video) loading
+  // Set up custom media (image/video) or preset image loading
   useEffect(() => {
     setMediaLoaded(false);
 
-    if (customMedia.type === 'image' && customMedia.url) {
+    if (customMedia.type && customMedia.url) {
+      if (customMedia.type === 'image') {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = customMedia.url;
+        img.onload = () => {
+          imageRef.current = img;
+          setMediaLoaded(true);
+        };
+      } else if (customMedia.type === 'video') {
+        const video = document.createElement('video');
+        video.crossOrigin = 'anonymous';
+        video.src = customMedia.url;
+        video.loop = true;
+        video.muted = false; // Enable sound by default
+        video.playsInline = true;
+        video.autoplay = true;
+        video.onloadeddata = () => {
+          videoRef.current = video;
+          video.play().catch((err) => {
+            console.log('Autoplay unmuted video error, trying muted:', err);
+            // Fallback to muted if browser blocks unmuted autoplay
+            video.muted = true;
+            video.play().catch((err2) => console.log('Autoplay failed entirely:', err2));
+          });
+          setMediaLoaded(true);
+        };
+        return () => {
+          video.pause();
+          video.src = '';
+          video.load();
+          videoRef.current = null;
+        };
+      }
+    } else {
+      // No custom media, load active preset image!
       const img = new Image();
       img.crossOrigin = 'anonymous';
-      img.src = customMedia.url;
+      img.src = preset.url;
       img.onload = () => {
-        imageRef.current = img;
+        presetImageRef.current = img;
         setMediaLoaded(true);
       };
-    } else if (customMedia.type === 'video' && customMedia.url) {
-      const video = document.createElement('video');
-      video.crossOrigin = 'anonymous';
-      video.src = customMedia.url;
-      video.loop = true;
-      video.muted = false; // Enable sound by default
-      video.playsInline = true;
-      video.autoplay = true;
-      video.onloadeddata = () => {
-        videoRef.current = video;
-        video.play().catch((err) => {
-          console.log('Autoplay unmuted video error, trying muted:', err);
-          // Fallback to muted if browser blocks unmuted autoplay
-          video.muted = true;
-          video.play().catch((err2) => console.log('Autoplay failed entirely:', err2));
-        });
+      img.onerror = (e) => {
+        console.error('Failed to load preset background image:', preset.url, e);
+        // Fallback to mediaLoaded true so we don't block render
         setMediaLoaded(true);
       };
-      return () => {
-        video.pause();
-        video.src = '';
-        video.load();
-        videoRef.current = null;
-      };
-    } else {
-      // Fluid gradient (no custom media)
-      setMediaLoaded(true);
     }
-  }, [customMedia]);
+  }, [customMedia, preset]);
 
   // Handle Resize
   useEffect(() => {
@@ -512,51 +526,31 @@ export default function RainCanvas({
           ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, offscreen.width, offscreen.height);
           ctx.restore();
         } else {
-          // Draw dynamic fluid gradient (default or chosen presets)
-          const time = isPlaying 
-            ? totalAccumulatedTimeRef.current + (Date.now() - lastTimeRef.current) * settings.speed 
-            : totalAccumulatedTimeRef.current;
+          // Render Preset Image Background!
+          const img = presetImageRef.current;
+          if (img) {
+            const aspectCanvas = offscreen.width / offscreen.height;
+            const aspectImg = img.width / img.height;
+            
+            let sWidth = img.width;
+            let sHeight = img.height;
+            let sx = 0;
+            let sy = 0;
 
-          // Fill Background
-          ctx.fillStyle = preset.color1;
-          ctx.fillRect(0, 0, offscreen.width, offscreen.height);
+            if (aspectImg > aspectCanvas) {
+              sWidth = img.height * aspectCanvas;
+              sx = (img.width - sWidth) / 2;
+            } else {
+              sHeight = img.width / aspectCanvas;
+              sy = (img.height - sHeight) / 2;
+            }
 
-          const maxDim = Math.max(offscreen.width, offscreen.height);
-
-          // Animated Fluid Blob 1
-          const x1 = offscreen.width * (0.5 + 0.3 * Math.sin(time * 0.0004));
-          const y1 = offscreen.height * (0.5 + 0.3 * Math.cos(time * 0.0006));
-          const r1 = maxDim * (0.6 + 0.1 * Math.sin(time * 0.0002));
-          const grad1 = ctx.createRadialGradient(x1, y1, 0, x1, y1, r1);
-          grad1.addColorStop(0, preset.color2);
-          grad1.addColorStop(1, 'rgba(0,0,0,0)');
-
-          ctx.globalCompositeOperation = preset.id === 'soft-pink' ? 'source-over' : 'screen';
-          ctx.fillStyle = grad1;
-          ctx.fillRect(0, 0, offscreen.width, offscreen.height);
-
-          // Animated Fluid Blob 2 (Accent Blob to enrich color dynamics)
-          const x2 = offscreen.width * (0.5 + 0.3 * Math.cos(time * 0.0005 + Math.PI));
-          const y2 = offscreen.height * (0.5 + 0.25 * Math.sin(time * 0.0003));
-          const r2 = maxDim * (0.5 + 0.15 * Math.cos(time * 0.0001));
-          const grad2 = ctx.createRadialGradient(x2, y2, 0, x2, y2, r2);
-          
-          // Compute distinct visual accent based on preset style
-          let accentColor = '#ff6b6b';
-          if (preset.id === 'neon-cyberpunk') accentColor = '#00f2fe';
-          else if (preset.id === 'deep-sea') accentColor = '#00c6ff';
-          else if (preset.id === 'forest-mist') accentColor = '#f5f7fa';
-          else if (preset.id === 'warm-sunset') accentColor = '#f7ff00';
-          else if (preset.id === 'soft-pink') accentColor = '#ffd3e1';
-
-          grad2.addColorStop(0, accentColor);
-          grad2.addColorStop(1, 'rgba(0,0,0,0)');
-
-          ctx.fillStyle = grad2;
-          ctx.fillRect(0, 0, offscreen.width, offscreen.height);
-          
-          // Revert blend operations
-          ctx.globalCompositeOperation = 'source-over';
+            ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, offscreen.width, offscreen.height);
+          } else {
+            // Placeholder background color if image isn't loaded yet
+            ctx.fillStyle = '#111';
+            ctx.fillRect(0, 0, offscreen.width, offscreen.height);
+          }
         }
       }
 

@@ -243,11 +243,11 @@ export default function SidebarSettings({
           </div>
         </div>
 
-          {/* Fluid Gradient Presets */}
+          {/* Preset Backgrounds */}
           <div className="space-y-3.5 pt-2">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-[#E5A7B8] flex items-center space-x-1.5 border-b border-white/10 pb-2">
               <Sparkles className="w-4 h-4" />
-              <span>背景渐变预设</span>
+              <span>预设背景壁纸</span>
             </h3>
             <div className="grid grid-cols-2 gap-2.5">
               {presets.map((p) => (
@@ -255,21 +255,27 @@ export default function SidebarSettings({
                   key={p.id}
                   onClick={() => onPresetSelect(p.id)}
                   disabled={!!customMedia.url}
-                  className={`group text-left p-3 rounded-2xl border text-xs transition-all relative overflow-hidden cursor-pointer ${
+                  className={`group text-left p-1.5 rounded-2xl border text-xs transition-all relative overflow-hidden cursor-pointer flex flex-col justify-between ${
                     activePresetId === p.id && !customMedia.url
-                      ? 'border-[#E5A7B8] bg-white/15'
+                      ? 'border-[#E5A7B8] bg-white/15 shadow-md shadow-[#E5A7B8]/5'
                       : 'border-white/10 hover:border-white/20 bg-white/5 disabled:opacity-20 disabled:hover:border-white/10'
                   }`}
                 >
-                  {/* Dynamic Overlapping color previews with high-contrast white borders and soft shadows */}
-                  <div className="flex items-center mb-1.5">
-                    <div className="flex -space-x-1.5">
-                      <span className="w-5 h-5 rounded-full border border-white/40 shadow-sm relative z-10 block" style={{ backgroundColor: p.color1 }} />
-                      <span className="w-5 h-5 rounded-full border border-white/40 shadow-sm block" style={{ backgroundColor: p.color2 }} />
-                    </div>
+                  {/* Thumbnail Image */}
+                  <div className="w-full h-14 rounded-xl overflow-hidden mb-1.5 relative border border-white/5">
+                    <img 
+                      src={p.url} 
+                      alt={p.name} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors" />
                   </div>
-                  <div className="font-semibold text-white group-hover:text-[#E5A7B8] transition-colors">{p.name}</div>
-                  <div className="text-[9px] text-white/50 line-clamp-1 mt-0.5">{p.description}</div>
+                  
+                  <div className="px-1 pb-1">
+                    <div className="font-semibold text-white group-hover:text-[#E5A7B8] transition-colors line-clamp-1">{p.name}</div>
+                    <div className="text-[9px] text-white/50 line-clamp-1 mt-0.5">{p.description}</div>
+                  </div>
                 </button>
               ))}
             </div>

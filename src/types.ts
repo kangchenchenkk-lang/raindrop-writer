@@ -6,13 +6,12 @@ export interface Note {
   updatedAt: string;
 }
 
-export type PresetId = 'default-fluid' | 'warm-sunset' | 'neon-cyberpunk' | 'deep-sea' | 'forest-mist' | 'soft-pink';
+export type PresetId = 'pinkflower1' | 'pinkflower' | 'rainy-night' | 'ancient' | 'flower' | 'busstop';
 
 export interface BackgroundPreset {
   id: PresetId;
   name: string;
-  color1: string;
-  color2: string;
+  url: string;
   description: string;
 }
 

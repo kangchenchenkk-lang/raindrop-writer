@@ -36,46 +36,40 @@ import {
 
 const PRESETS: BackgroundPreset[] = [
   {
-    id: 'soft-pink',
-    name: '温柔粉黛 (Soft Pink)',
-    color1: '#FCF7F7',
-    color2: '#F4DDE2',
-    description: '如樱花雨落般的温柔少女粉'
+    id: 'pinkflower1',
+    name: '落樱拂雪',
+    url: 'https://cdn.jsdelivr.net/gh/kangchenchenkk-lang/my-app-assets@main/pinkflower1.png',
+    description: '温柔细腻的粉红落樱'
   },
   {
-    id: 'default-fluid',
-    name: '经典流体 (Oceanic)',
-    color1: '#070814',
-    color2: '#270c35',
-    description: '迷幻深紫与星空幽邃交融'
+    id: 'pinkflower',
+    name: '樱漫枝头',
+    url: 'https://cdn.jsdelivr.net/gh/kangchenchenkk-lang/my-app-assets@main/pinkflower.png',
+    description: '春日暖阳下的盛开樱花'
   },
   {
-    id: 'warm-sunset',
-    name: '暖阳落日 (Sunset)',
-    color1: '#1a0b2e',
-    color2: '#bd1b8a',
-    description: '如雨中霓虹般的迷朦橘粉'
+    id: 'rainy-night',
+    name: '深邃雨夜',
+    url: 'https://cdn.jsdelivr.net/gh/kangchenchenkk-lang/my-app-assets@main/rainy%20night_compressed.png',
+    description: '万家灯火闪烁的雨夜街道'
   },
   {
-    id: 'neon-cyberpunk',
-    name: '赛博雨夜 (Cyberpunk)',
-    color1: '#03001e',
-    color2: '#ec38bc',
-    description: '高反差荧光蓝粉与都市流光'
+    id: 'ancient',
+    name: '古韵廊桥',
+    url: 'https://cdn.jsdelivr.net/gh/kangchenchenkk-lang/my-app-assets@main/ancient_compressed.png',
+    description: '雨打芭蕉的江南古风廊桥'
   },
   {
-    id: 'deep-sea',
-    name: '幽蓝深海 (Deep Ocean)',
-    color1: '#051319',
-    color2: '#122c36',
-    description: '静谧神秘的暗绿蓝深海域'
+    id: 'flower',
+    name: '绿意初绽',
+    url: 'https://cdn.jsdelivr.net/gh/kangchenchenkk-lang/my-app-assets@main/flower_compressed.png',
+    description: '清新温柔的草木与繁花'
   },
   {
-    id: 'forest-mist',
-    name: '林深见鹿 (Sage Forest)',
-    color1: '#0b262a',
-    color2: '#417256',
-    description: '雨后湿润的森林苔藓绿'
+    id: 'busstop',
+    name: '雨中车站',
+    url: 'https://cdn.jsdelivr.net/gh/kangchenchenkk-lang/my-app-assets@main/busstop_compressed.png',
+    description: '浪漫唯美的雨中候车亭'
   }
 ];
 
@@ -98,7 +92,7 @@ export default function App() {
   });
 
   // --- Background Preset State ---
-  const [activePresetId, setActivePresetId] = useState<PresetId>('soft-pink');
+  const [activePresetId, setActivePresetId] = useState<PresetId>('pinkflower1');
   const activePreset = PRESETS.find(p => p.id === activePresetId) || PRESETS[0];
 
   // --- Custom Media Upload State ---
