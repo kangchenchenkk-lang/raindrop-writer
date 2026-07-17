@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;700&family=Long+Cang&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #FAF4F4;
+    color: #2D2224;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    overflow: hidden;
+  }
+}
+
+/* Custom minimal scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(229, 167, 184, 0.05);
+  border-radius: 999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(229, 167, 184, 0.25);
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(229, 167, 184, 0.45);
+}
+
+/* Custom minimal scrollbar for light theme (Kami parchment style) */
+.custom-scrollbar-light::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar-light::-webkit-scrollbar-track {
+  background: rgba(20, 20, 19, 0.02);
+  border-radius: 999px;
+}
+
+.custom-scrollbar-light::-webkit-scrollbar-thumb {
+  background: rgba(20, 20, 19, 0.12);
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.custom-scrollbar-light::-webkit-scrollbar-thumb:hover {
+  background: rgba(20, 20, 19, 0.24);
+}
+
+/* Hide scrollbars but keep functionality */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ambient glow and backdrop glassmorphism */
+.glass-panel {
+  background: rgba(250, 244, 244, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(229, 167, 184, 0.15);
+}
+
+/* Custom interactive inputs */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(229, 167, 184, 0.15);
+  border-radius: 999px;
+  outline: none;
+  height: 6px;
+  transition: all 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #E5A7B8;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(229, 167, 184, 0.4);
+  transition: transform 0.15s, background-color 0.15s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #DC93A6;
+}
+
+/* Immersive Screen Shake for Thunder Lightning */
+@keyframes screen-shake {
+  0% { transform: translate(0, 0) scale(1.01); }
+  10% { transform: translate(-3px, 2px) scale(1.02); }
+  20% { transform: translate(2px, -3px) scale(1.01); }
+  30% { transform: translate(-1px, -1px) scale(1.02); }
+  40% { transform: translate(3px, 1px) scale(1.01); }
+  50% { transform: translate(-2px, 3px) scale(1.01); }
+  60% { transform: translate(1px, -2px) scale(1.02); }
+  70% { transform: translate(-3px, -1px) scale(1.01); }
+  80% { transform: translate(2px, 2px) scale(1.01); }
+  90% { transform: translate(-1px, -2px) scale(1.01); }
+  100% { transform: translate(0, 0) scale(1.01); }
+}
+
+.animate-shake {
+  animation: screen-shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Vinyl record slow spinning animation */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+

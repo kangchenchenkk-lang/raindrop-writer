@@ -1,0 +1,6 @@
+{
+  "name": "Raindrop Ambient Editor",
+  "description": "An immersive atmospheric writing and reading space featuring a real-time GLSL raindrop shader based on Heartfelt, customizable fluid or media backgrounds, ambient rain noises, and editable notes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
