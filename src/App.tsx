@@ -326,7 +326,7 @@ export default function App() {
             className={`w-full bg-[#fdfbf7] rounded-[24px] border border-[#4c2c31]/15 text-[#4c2c31] flex flex-col justify-between relative overflow-hidden transition-all duration-300 ${
               isExport 
                 ? 'p-12 w-[460px] min-h-[640px] h-auto' 
-                : 'p-6 sm:p-10 min-h-[520px] sm:min-h-[580px] h-auto aspect-[23/32] w-auto max-w-full'
+                : 'p-6 sm:p-10 min-h-[520px] sm:min-h-[580px] h-auto w-full'
             }`}
             style={{ boxShadow: '0 20px 40px -15px rgba(0,0,0,0.15)' }}
           >
@@ -388,7 +388,7 @@ export default function App() {
             className={`w-full bg-[#81b3df] rounded-[24px] flex flex-col justify-between relative overflow-hidden transition-all duration-300 ${
               isExport 
                 ? 'w-[460px] min-h-[640px] h-auto p-8' 
-                : 'min-h-[520px] sm:min-h-[580px] h-auto aspect-[23/32] w-auto max-w-full p-5 sm:p-6'
+                : 'min-h-[520px] sm:min-h-[580px] h-auto w-full p-5 sm:p-6'
             }`}
             style={{ boxShadow: '0 20px 40px -15px rgba(0,0,0,0.3)' }}
           >
@@ -449,7 +449,7 @@ export default function App() {
             className={`w-full bg-[#ddd264] rounded-[24px] flex flex-col justify-between relative overflow-hidden transition-all duration-300 ${
               isExport 
                 ? 'w-[460px] min-h-[640px] h-auto p-8' 
-                : 'min-h-[520px] sm:min-h-[580px] h-auto aspect-[23/32] w-auto max-w-full p-5 sm:p-6'
+                : 'min-h-[520px] sm:min-h-[580px] h-auto w-full p-5 sm:p-6'
             }`}
             style={{ boxShadow: '0 20px 40px -15px rgba(0,0,0,0.3)' }}
           >
@@ -511,7 +511,7 @@ export default function App() {
             className={`w-full bg-[#fdfcf7] rounded-[24px] border border-[#dfd9cd]/50 text-[#1B365D] flex flex-col justify-between relative overflow-hidden transition-all duration-300 ${
               isExport 
                 ? 'p-12 w-[460px] min-h-[640px] h-auto' 
-                : 'p-6 sm:p-8 min-h-[520px] sm:min-h-[580px] h-auto aspect-[23/32] w-auto max-w-full'
+                : 'p-6 sm:p-8 min-h-[520px] sm:min-h-[580px] h-auto w-full'
             }`}
             style={{ boxShadow: '0 20px 40px -15px rgba(0,0,0,0.12)' }}
           >
@@ -1121,7 +1121,7 @@ export default function App() {
 
             {/* Left Column: Floating Elegant Card Preview with full vertical scrolling */}
             <div className="flex-1 flex flex-col justify-center items-center min-w-[340px] max-w-[420px]">
-              <div className="w-full max-h-[75vh] md:max-h-[580px] overflow-y-auto custom-scrollbar-light pr-2 py-2 transition-all duration-300 flex justify-center">
+              <div className="w-full max-h-[75vh] md:max-h-[580px] overflow-y-auto custom-scrollbar-light pr-2 py-2 transition-all duration-300 block">
                 <div className="w-full">
                   {renderCard(activeShareBgId, false)}
                 </div>
