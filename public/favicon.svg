@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Define a soft shadow for the letter to make it pop elegantly, matching our high-quality styling -->
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#4c1e28" flood-opacity="0.12" />
+    </filter>
+  </defs>
+  <!-- Beautiful soft pink rounded background matching the brand image -->
+  <rect width="256" height="256" rx="72" fill="#f59dae" />
+  
+  <!-- Elegant cursive styled letter K, with multiple high-quality local fallback fonts -->
+  <text 
+    x="128" 
+    y="144" 
+    dominant-baseline="middle" 
+    text-anchor="middle" 
+    font-family="'Caveat', 'Dancing Script', 'Brush Script MT', 'Great Vibes', 'Pacifico', 'Playfair Display', cursive, serif" 
+    font-size="165" 
+    font-weight="900" 
+    font-style="italic" 
+    fill="#ffffff"
+    filter="url(#soft-shadow)"
+  >K</text>
+</svg>
