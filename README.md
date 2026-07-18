@@ -1,7 +1,9 @@
+<img width="2940" height="1602" alt="image" src="https://github.com/user-attachments/assets/5803657c-4f92-455d-9280-26c0a0fd6cbd" />
+
 
 # 🌧️ Raindrop Ambient Editor
 
-> 沉浸式拟真雨滴氛围编辑器 —— 为自习、冥想、写作与放松而生的白噪音空间定制工具。
+> Raindrop Ambient Editor 是一个融合 GLSL 实时雨滴渲染、东方美学壁纸与多声道白噪音的沉浸式氛围编辑器。在 WebGL 驱动的拟真雨景中写作、冥想与放松，打造属于你的静谧空间。
 
 本项目灵感源自小红书博主 @秒秒Guo 的教程，在此致以诚挚感谢。
 
